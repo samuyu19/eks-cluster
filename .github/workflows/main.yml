@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     needs:
-      - run-tests
+#      - run-tests
 
     steps:
     - name: Clone
