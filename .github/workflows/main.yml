@@ -1,12 +1,20 @@
 name: cd
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      version-tag:
+        description: 'Put version tag'
+        required: false
+        type: string
+      tier:
+        description: 'Choose deployment env'
+        required: true
+        default: 'stg'
+        type: choice
+        options:
+          - stg
+          - prod
 
 env:
   AWS_REGION: eu-west-3
@@ -28,8 +36,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
-    needs:
-      - run-tests
 
     steps:
     - name: Clone
