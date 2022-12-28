@@ -6,3 +6,5 @@ Creation of a **website**, hosted on a **Kubernetes cluster**. Use **Kubectl**, 
 - `terraform` branch : updated version using **terraform** + without **eksctl**.
 
 ![architecture.svg](architecture.svg)
+
+test
