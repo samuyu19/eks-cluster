@@ -65,6 +65,7 @@ jobs:
           --remote-name
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
+        sudo apt-get install coreutils -y
         echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
     - name: Deploy
       env:
