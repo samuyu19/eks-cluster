@@ -47,7 +47,7 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/ 
         echo "ABC"
- #       echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+        echo ${{ secrets.KUBECONFIG }} > kubeconfig.yaml
 
     - name: Deploy
       run: |
