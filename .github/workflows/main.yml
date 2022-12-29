@@ -46,9 +46,10 @@ jobs:
         curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl > kubectl
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/ 
-        echo "123"
+        echo "1"
         echo ${{ secrets.KUBECONFIG }} > kubeconfig.yaml
-        echo "456"
+        echo "2"
     - name: Deploy
       run: |
+        echo "3"
         /usr/local/bin/kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/examples/2048/2048_full.yaml
