@@ -1,0 +1,47 @@
+name: ekscluster-deployment
+
+on:
+  workflow_dispatch:
+    input:
+      cluster-name:
+        description: 'Enter EKS cluster name'
+        required: true
+        type: string
+      tier:
+        description: 'Choose deployment env'
+        required: true
+        default: 'stg'
+        type: choice
+        options:
+          - eks_stg
+          - eks_prod
+
+env:
+  AWS_REGION: us-west-2
+  ECR_REPOSITORY: kubernetes-github-actions
+  SHORT_SHA: $(echo ${{ github.sha }} | cut -c 1-8)
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Install eksctl
+      run: |
+        curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/eksctl /usr/local/bin
+
+    - name: Deploy
+      run: |
+        eksctl create cluster --name ${{ inputs.cluster-name }}
