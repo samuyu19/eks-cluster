@@ -66,7 +66,9 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
         sudo apt-get install coreutils -y
+        cat /home/runner/work/_temp/*.sh
         echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+        sudo apt-get install coreutils -y
     - name: Deploy
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
