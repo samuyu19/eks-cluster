@@ -44,16 +44,10 @@ jobs:
         # https://github.com/aws/aws-cli/issues/6920#issuecomment-1117981158
         VERSION=v1.23.6
         curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl > kubectl
-        sudo ls /
-        sudo ls -l kubectl
         sudo chmod +x kubectl
         sudo mv kubectl /usr/local/bin/ 
-        sudo ls -l /usr/local/bin/kubectl
-        echo "1"
         echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
-        echo "2"
-        sudo ls -l kubeconfig.yaml
+
     - name: Deploy
       run: |
-        echo "3"
         kubectl --kubeconfig kubeconfig.yaml apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/examples/2048/2048_full.yaml
