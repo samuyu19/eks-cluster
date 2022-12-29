@@ -1,4 +1,4 @@
-name: cd
+name: microservice-deployment
 
 on:
   workflow_dispatch:
