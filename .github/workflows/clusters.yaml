@@ -50,7 +50,7 @@ jobs:
 
     - name: Deploy
       run: |
-        eksctl create cluster --name ${{ inputs.cluster-name }} || true
+        eksctl create cluster --name ${{ inputs.cluster-name }}
         aws sts get-caller-identity
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
         eksctl utils associate-iam-oidc-provider --region ${AWS_REGION} --cluster ${{ inputs.cluster-name }} --approve
