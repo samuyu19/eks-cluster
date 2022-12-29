@@ -46,8 +46,9 @@ jobs:
         curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl > kubectl
         sudo ls /
         sudo ls -l kubectl
-        chmod +x kubectl
+        sudo chmod +x kubectl
         sudo mv kubectl /usr/local/bin/ 
+        sudo ls -l /usr/local/bin/kubectl
         echo "1"
         echo ${{ secrets.KUBECONFIG }} > kubeconfig.yaml
         echo "2"
