@@ -56,7 +56,7 @@ jobs:
         eksctl utils associate-iam-oidc-provider --region ${AWS_REGION} --cluster ${{ inputs.cluster-name }} --approve
         curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.5/docs/install/iam_policy.json
         cat iam_policy.json
-        aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
+        aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json || true
 
         eksctl create iamserviceaccount \
           --cluster ${{ inputs.cluster-name }} \
