@@ -1,8 +1,8 @@
-name: ekscluster-deployment
+name: cluster-deployment
 
 on:
   workflow_dispatch:
-    input:
+    inputs:
       cluster-name:
         description: 'Enter EKS cluster name'
         required: true
