@@ -39,9 +39,6 @@ jobs:
 
     - name: Install awscli, eksctl. kubectl, helm
       run: |
-        #curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-        #unzip awscliv2.zip
-        #sudo ./aws/install
         curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
         sudo mv /tmp/eksctl /usr/local/bin
         VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
@@ -56,7 +53,7 @@ jobs:
         eksctl create cluster --name ${{ inputs.cluster-name }} || true
         aws sts get-caller-identity
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
-        eksctl utils associate-iam-oidc-provider --region ${AWS_REGION} --cluster kubernetes-github-actions --approve
+        eksctl utils associate-iam-oidc-provider --region ${AWS_REGION} --cluster ${{ inputs.cluster-name }} --approve
         curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.5/docs/install/iam_policy.json
         cat iam_policy.json
         aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
