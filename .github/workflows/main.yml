@@ -50,10 +50,9 @@ jobs:
         sudo mv kubectl /usr/local/bin/ 
         sudo ls -l /usr/local/bin/kubectl
         echo "1"
-        /usr/local/bin/kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/examples/2048/2048_full.yaml
-        sudo echo ${{ secrets.KUBECONFIG }} > kubeconfig.yaml
-        /usr/local/bin/kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/examples/2048/2048_full.yaml
+        echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
         echo "2"
+        sudo ls -l kubeconfig.yaml
     - name: Deploy
       run: |
         echo "3"
