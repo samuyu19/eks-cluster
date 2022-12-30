@@ -45,8 +45,10 @@ jobs:
         VERSION=v1.23.6
         curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl > kubectl
         sudo chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/ 
-        echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+        sudo mv kubectl /usr/local/bin/
+        aws sts get-caller-identity
+        aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
+        #echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
     - name: Deploy
       run: |
