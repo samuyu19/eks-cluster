@@ -47,7 +47,8 @@ jobs:
         sudo chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
         aws sts get-caller-identity
-        aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
+        #aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
+        aws eks update-kubeconfig --name kubernetes-github-actions
         #echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
     - name: Deploy
