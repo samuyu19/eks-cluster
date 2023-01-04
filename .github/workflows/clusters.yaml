@@ -17,7 +17,7 @@ on:
           - eks_prod
 
 env:
-  AWS_REGION: us-west-2
+  AWS_REGION: us-west-1
   ECR_REPOSITORY: kubernetes-github-actions
   SHORT_SHA: $(echo ${{ github.sha }} | cut -c 1-8)
 
@@ -50,7 +50,8 @@ jobs:
 
     - name: Deploy
       run: |
-        eksctl create cluster --name ${{ inputs.cluster-name }}
+        eksctl create cluster --name ${{ inputs.cluster-name }} --vpc-private-subnets=subnet-0151abc3267fc77a1,subnet-088e44830a71d6e94 \ 
+        --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 4
         aws sts get-caller-identity
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
         eksctl utils associate-iam-oidc-provider --region ${AWS_REGION} --cluster ${{ inputs.cluster-name }} --approve
