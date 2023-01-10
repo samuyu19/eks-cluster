@@ -50,7 +50,7 @@ jobs:
 
     - name: Deploy
       run: |
-        eksctl create cluster --name ${{ inputs.cluster-name }} --vpc-private-subnets=subnet-0151abc3267fc77a1,subnet-088e44830a71d6e94 \ 
+        eksctl create cluster --name ${{ inputs.cluster-name }} \ 
         --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 4
         AWS_ACCOUNT=`aws sts get-caller-identity --query Account --output text`
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
