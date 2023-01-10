@@ -7,6 +7,10 @@ on:
         description: 'Put version tag'
         required: false
         type: string
+      cluster-name:
+        description: 'Put EKS cluster name'
+        required: true
+        type: string
       tier:
         description: 'Choose deployment env'
         required: true
@@ -17,7 +21,7 @@ on:
           - prod
 
 env:
-  AWS_REGION: eu-west-3
+  AWS_REGION: us-west-1
   ECR_REPOSITORY: kubernetes-github-actions
   SHORT_SHA: $(echo ${{ github.sha }} | cut -c 1-8)
 
@@ -46,9 +50,9 @@ jobs:
         curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl > kubectl
         sudo chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
-        aws sts get-caller-identity
+        #aws sts get-caller-identity
         #aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
-        aws eks update-kubeconfig --name kubernetes-github-actions
+        aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
         #echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
     - name: Deploy
