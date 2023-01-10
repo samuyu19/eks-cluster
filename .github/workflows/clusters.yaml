@@ -91,6 +91,16 @@ jobs:
 
         kubectl -n kube-system rollout status deployment aws-load-balancer-controller
         
+        
+#        eksctl create iamserviceaccount \
+#          --name ebs-csi-controller-sa \
+#          --namespace kube-system \
+#          --cluster ${{ inputs.cluster-name }} \
+#          --attach-policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy \
+#          --approve \
+#          --role-only \
+#          --role-name AmazonEKS_EBS_CSI_DriverRole
+          
         kubectl create namespace prometheus
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
         helm repo update
