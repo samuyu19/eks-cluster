@@ -50,8 +50,7 @@ jobs:
 
     - name: Deploy
       run: |
-        eksctl create cluster --name ${{ inputs.cluster-name }} \ 
-        --node-type t3.medium --nodes 3 --nodes-min 1 --nodes-max 4
+        eksctl create cluster --name ${{ inputs.cluster-name }} 
         AWS_ACCOUNT=`aws sts get-caller-identity --query Account --output text`
         aws eks update-kubeconfig --name ${{ inputs.cluster-name }}
         eksctl utils associate-iam-oidc-provider --region ${AWS_REGION} --cluster ${{ inputs.cluster-name }} --approve
