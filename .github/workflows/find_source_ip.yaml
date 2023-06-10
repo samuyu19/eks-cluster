@@ -1,4 +1,4 @@
-name: 'ops-okta-query'
+name: 'find-source-ip'
 
 on:
   schedule:
