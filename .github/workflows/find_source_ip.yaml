@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  okta-query:
+  find-source-ip:
     runs-on: ubuntu-latest
     steps:
       - name: 'find source IP'
