@@ -9,7 +9,7 @@ jobs:
   stg-deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: 'checkout cspe-piam release'
+      - name: 'checkout cspe-piam release by curl'
         run: |
            curl -L -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                -H "Accept: application/octet-stream" \
@@ -18,3 +18,7 @@ jobs:
                -o test.tar.gz
            ls -al test.tar.gz
            echo "right after curl download" 
+      - name: 'checkout cspe-piam release by gh cli'
+        run: |
+           gh release download -R "cisco-sbg/cspe-piam" test
+           echo "right after gh download" 
