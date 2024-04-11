@@ -2,8 +2,9 @@ name: test-internal-repo
 
 # Workflow triggered manually
 on:
-  workflow_dispatch:
-
+  workflow_dispatch: 
+env:
+  GH_TOKEN: ${{ github.token }}
     
 jobs:
   stg-deployment:
